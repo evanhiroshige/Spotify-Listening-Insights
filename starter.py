@@ -1,10 +1,10 @@
 import sys
 import spotipy
 import spotipy.util as util
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-scope = 'user-top-read'
+scope = 'user-library-read'
 
 if len(sys.argv) > 3:
     username = sys.argv[1]
@@ -40,7 +40,7 @@ if token:
         features += sp.audio_features(ids[offset:offset + offset2])
         offset += 100
 
-    time = np.arange(len(ids))
+    time = list(range(len(ids)))
     dance_values = []
     energy_values = []
     speechiness_values = []
@@ -173,11 +173,21 @@ if token:
     plt.savefig('genre2.pdf')
     plt.show()
 
-    plt.hist2d(x, y, bins=(100, len(genre_seeds)), cmap=plt.cm.Reds)
+    plt.hist2d(x, y, bins=(71, len(genre_seeds)), cmap=plt.cm.Reds)
     plt.yticks(list(range(1, len(genre_seeds))), genre_seeds)
     plt.tick_params(axis='y', which='major', labelsize=3)
     plt.savefig('genre3.pdf')
     plt.show()
+
+    z = np.zeros((max(x), len(y)))
+    z_count = np.zeros((np.math.floor(max(x) / 7) + max(x) % 7, len(genre_seeds)))
+    print(z_count.shape)
+    count = 0
+    # for i in x:
+
+
+
+
 
 
 
